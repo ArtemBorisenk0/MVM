@@ -58,11 +58,14 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         taskAdapter = TaskAdapter(
             taskList,
-            onTaskClicked = { task -> showEditTaskDialog(task) }
+            onTaskCompleted = { task -> completeTask(task) },
+            showCompleteButton = true // Отображаем кнопку
         )
         binding.tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.tasksRecyclerView.adapter = taskAdapter
     }
+
+
 
 
 
@@ -200,6 +203,39 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), "Ошибка обновления задачи", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun completeTask(task: Task) {
+        val completedTask = task.copy(completedDate = System.currentTimeMillis())
+
+        db.collection("archive")
+            .add(completedTask) // Сохраняем выполненный элемент в архив
+            .addOnSuccessListener {
+                if (!task.isHabit) { // Только задачи удаляются
+                    db.collection("tasks")
+                        .whereEqualTo("title", task.title)
+                        .get()
+                        .addOnSuccessListener { querySnapshot ->
+                            for (document in querySnapshot.documents) {
+                                db.collection("tasks").document(document.id).delete()
+                                    .addOnSuccessListener {
+                                        taskList.remove(task)
+                                        taskAdapter.notifyDataSetChanged()
+                                        Toast.makeText(requireContext(), "Задача выполнена и сохранена в архив", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+                        }
+                } else {
+                    // Привычки остаются в списке, но сохраняются в архив
+                    Toast.makeText(requireContext(), "Привычка сохранена в архив как выполненная", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Ошибка сохранения в архив", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+
 
 
     override fun onDestroyView() {
