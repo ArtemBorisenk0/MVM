@@ -6,22 +6,28 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/usernameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:hint="Логин (email)"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="Пароль"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register" />
+        android:text="Регистрация" />
 
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Вход" />
 </LinearLayout>

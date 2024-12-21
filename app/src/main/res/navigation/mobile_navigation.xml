@@ -5,21 +5,47 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <!-- Регистрация -->
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.mvm.fragments.RegistrationFragment"
+        android:label="Регистрация"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_homeFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <!-- Главный экран -->
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.mvm.fragments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
+    <!-- Сад -->
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.mvm.fragments.GardenFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_garden" />
 
+    <!-- Профиль -->
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/profileFragment"
         android:name="com.example.mvm.fragments.ProfileFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profile">
+        <!-- Переход на аккаунт -->
+        <action
+            android:id="@+id/action_profileFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
+
+    <!-- Аккаунт -->
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.mvm.fragments.AccountFragment"
+        android:label="Аккаунт"
+        tools:layout="@layout/fragment_account" />
 </navigation>

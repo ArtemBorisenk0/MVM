@@ -4,36 +4,51 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.mvm.databinding.FragmentNotificationsBinding
-import com.example.mvm.models.NotificationsViewModel
+import androidx.navigation.fragment.findNavController
+import com.example.mvm.R
+import com.example.mvm.databinding.FragmentProfileBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = "Профиль"
+        loadUserProfile()
+
+        binding.accountButton.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_accountFragment)
         }
-        return root
+    }
+
+    private fun loadUserProfile() {
+        val user = auth.currentUser
+        if (user != null) {
+            // Получаем дополнительные данные из Firestore
+            db.collection("users").document(user.uid).get()
+                .addOnSuccessListener { document ->
+                    val nickname = document.getString("nickname") ?: "Безымянный пользователь"
+                    binding.usernameTextView.text = nickname
+                }
+                .addOnFailureListener {
+                    binding.usernameTextView.text = "Ошибка загрузки профиля"
+                }
+        }
     }
 
     override fun onDestroyView() {

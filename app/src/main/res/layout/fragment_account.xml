@@ -1,0 +1,35 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Поле для редактирования никнейма -->
+    <EditText
+        android:id="@+id/nicknameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Никнейм"
+        android:imeOptions="actionDone"
+        android:inputType="text" />
+
+
+
+    <!-- Email (только для чтения) -->
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Email: example@gmail.com"
+        android:textSize="16sp" />
+
+    <!-- Кнопка выхода -->
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Выйти из аккаунта" />
+</LinearLayout>

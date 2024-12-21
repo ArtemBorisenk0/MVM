@@ -1,0 +1,37 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Аватарка -->
+    <ImageView
+        android:id="@+id/avatarImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_avatar_placeholder"
+        android:contentDescription="Ава"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_background" />
+
+    <!-- Никнейм -->
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Никнейм пользователя"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Кнопка аккаунт -->
+    <Button
+        android:id="@+id/accountButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Аккаунт" />
+</LinearLayout>
