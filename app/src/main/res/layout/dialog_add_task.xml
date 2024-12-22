@@ -1,5 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -22,4 +24,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Это привычка?" />
+
+    <!-- Ползунок -->
+
+    <!-- Числовые метки -->
+    <SeekBar
+        android:id="@+id/taskValueSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="3"
+        android:progress="0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/value_1"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="   1★" />
+
+        <TextView
+            android:id="@+id/value_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="2★   " />
+
+        <TextView
+            android:id="@+id/value_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="   3★" />
+
+        <TextView
+            android:id="@+id/value_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="4★   " />
+    </LinearLayout>
 </LinearLayout>
+
+

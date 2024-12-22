@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import com.example.mvm.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import android.content.Intent
+
 
 class AccountFragment : Fragment() {
 
@@ -34,7 +36,6 @@ class AccountFragment : Fragment() {
 
         loadUserData()
 
-
         // Обработка нажатия на галочку
         binding.nicknameEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
@@ -45,6 +46,22 @@ class AccountFragment : Fragment() {
                 false
             }
         }
+
+        // Обработка кнопки "Выйти"
+        binding.logoutButton.setOnClickListener {
+            logOut()
+        }
+    }
+
+    private fun logOut() {
+        auth.signOut() // Выход из Firebase
+        Toast.makeText(requireContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show()
+
+        // Переход на экран входа
+        val intent = requireActivity().intent
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        requireActivity().finish()
+        startActivity(intent)
     }
 
     private fun loadUserData() {
@@ -91,7 +108,6 @@ class AccountFragment : Fragment() {
                 Toast.makeText(requireContext(), "Ошибка сохранения никнейма: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
 
     private fun hideKeyboard() {
         val inputMethodManager =

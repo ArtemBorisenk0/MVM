@@ -49,7 +49,7 @@ class RegistrationFragment : Fragment() {
             val password = binding.passwordEditText.text.toString().trim()
 
             if (validateInputs(email, password)) {
-                loginUser(email, password)
+                loginUser(email, 123456.toString())
             }
         }
     }

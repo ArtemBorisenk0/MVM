@@ -4,22 +4,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvm.R
 import com.example.mvm.models.Task
-import android.widget.Button
-
 
 class TaskAdapter(
     private val tasks: List<Task>,
     private val onTaskCompleted: ((Task) -> Unit)? = null,
-    private val showCompleteButton: Boolean = true // Новое свойство
+    private val onTaskClicked: ((Task) -> Unit)? = null, // Новый обработчик
+    private val showCompleteButton: Boolean = true
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.taskTitleTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.taskDescriptionTextView)
         val typeTextView: TextView = itemView.findViewById(R.id.taskTypeTextView)
+        val valueTextView: TextView = itemView.findViewById(R.id.taskValueTextView)
         val completeButton: Button = itemView.findViewById(R.id.completeTaskButton)
     }
 
@@ -30,11 +31,19 @@ class TaskAdapter(
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
+
+        // Устанавливаем данные задачи
         holder.titleTextView.text = task.title
         holder.descriptionTextView.text = task.description
         holder.typeTextView.text = if (task.isHabit) "Привычка" else "Задача"
+        holder.valueTextView.text = "Ценность: ${task.value}"
 
-        // Логика отображения кнопки
+        // Обработка клика по задаче
+        holder.itemView.setOnClickListener {
+            onTaskClicked?.invoke(task) // Передаём задачу в обработчик
+        }
+
+        // Логика отображения кнопки "Выполнить"
         if (showCompleteButton) {
             holder.completeButton.visibility = View.VISIBLE
             holder.completeButton.setOnClickListener {
@@ -47,5 +56,4 @@ class TaskAdapter(
 
     override fun getItemCount(): Int = tasks.size
 }
-
 

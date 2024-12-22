@@ -6,5 +6,6 @@ data class Task(
     val title: String = "",
     val description: String = "-",
     @PropertyName("habit") val isHabit: Boolean = false,
-    val completedDate: Long? = null // Время выполнения в миллисекундах (timestamp)
+    val completedDate: Long? = null, // Время выполнения в миллисекундах (timestamp)
+    val value: Int = 1 // поле для ценности задачи
 )

@@ -1,22 +1,64 @@
-<RelativeLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <!-- RecyclerView для списка задач -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tasksRecyclerView"
+    <!-- Основной контент экрана -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/addTaskButton" />
+        android:padding="16dp">
 
-    <!-- Кнопка для добавления задачи -->
-    <Button
-        android:id="@+id/addTaskButton"
+        <!-- Здесь можно добавить основной контент -->
+        <ProgressBar
+            android:id="@+id/dailyPlanProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="0"
+            android:layout_margin="16dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="false" />
+
+        <TextView
+            android:id="@+id/dailyPlanTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="0 / 0"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@android:color/black" />
+
+
+    </RelativeLayout>
+
+    <!-- Bottom Sheet -->
+    <LinearLayout
+        android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Добавить задачу"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp" /> <!-- Отступ от нижней панели -->
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:paddingBottom="56dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <!-- RecyclerView для списка задач -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tasksRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="16dp" />
+
+        <!-- Кнопка для добавления задачи -->
+        <Button
+            android:id="@+id/addTaskButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Добавить задачу" />
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

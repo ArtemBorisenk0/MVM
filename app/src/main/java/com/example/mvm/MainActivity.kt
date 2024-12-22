@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
     }
 }
