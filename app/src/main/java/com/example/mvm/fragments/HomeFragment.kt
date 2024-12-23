@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.Calendar
 import android.util.Log
+import com.example.mvm.R
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -274,6 +275,7 @@ class HomeFragment : Fragment() {
     private fun updateDailyPlanUI(totalValue: Int, maxPlanValue: Int) {
         val progressBar = binding.dailyPlanProgressBar
         val progressTextView = binding.dailyPlanTextView
+        val planStatusImageView = binding.planStatusImageView
 
         progressBar.max = maxPlanValue
         progressBar.progress = totalValue
@@ -281,12 +283,17 @@ class HomeFragment : Fragment() {
         // Обновляем текстовое поле
         progressTextView.text = "$totalValue / $maxPlanValue"
 
+        // Изменяем изображение на основе состояния плана
         if (totalValue >= maxPlanValue && totalValue > 0) {
+            planStatusImageView.setImageResource(R.drawable.ic_plan_completed)
             Toast.makeText(requireContext(), "План на день выполнен!", Toast.LENGTH_SHORT).show()
+        } else {
+            planStatusImageView.setImageResource(R.drawable.ic_plan_not_completed)
         }
 
         Log.d("DailyPlan", "Progress updated: $totalValue / $maxPlanValue")
     }
+
 
 
 

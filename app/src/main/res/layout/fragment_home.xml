@@ -31,6 +31,14 @@
             android:gravity="center"
             android:textColor="@android:color/black" />
 
+        <ImageView
+            android:id="@+id/planStatusImageView"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="160dp"
+            android:contentDescription="@string/plan_status_image"
+            android:src="@drawable/ic_plan_not_completed" />
+
 
     </RelativeLayout>
 
